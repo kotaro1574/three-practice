@@ -69,14 +69,14 @@
         wrapper.appendChild(renderer.domElement);
 
         // カメラ
-        ccamera = new THREE.PerspectiveCamera(
+        camera = new THREE.PerspectiveCamera(
             CAMERA_PARAM.fovy,
             CAMERA_PARAM.aspect,
             CAMERA_PARAM.near,
             CAMERA_PARAM.far,
         );
         camera.position.set(CAMERA_PARAM.x, CAMERA_PARAM.y, CAMERA_PARAM.z)
-        canera.lookAt(CAMERA_PARAM.lookAt)
+        camera.lookAt(CAMERA_PARAM.lookAt)
     }
 
     function render() {
