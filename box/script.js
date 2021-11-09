@@ -39,6 +39,18 @@
     let directionalLight; // ディレクショナル・ライト（平行光源）
     let ambientLight;     // アンビエントライト（環境光）
 
+    // カメラに関するパラメータ
+    const CAMERA_PARAM = {
+        fovy: 60,
+        aspect: window.innerWidth / window.innerHeight,
+        near: 0.1,
+        far: 30.0,
+        x: 0.0,
+        y: 5.0,
+        z: 10.0,
+        lookAt: new THREE.Vector3(0.0, 0.0, 0.0),
+    };
+    // レンダラに関するパラメータ
     const RENDERER_PARAM = {
         clearColor: 0x666666,
         width: window.innerWidth,
@@ -46,11 +58,25 @@
     }
 
     function init() {
+        // シーン
         scene = new THREE.Scene();
 
+        // レンダラ
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(new THREE.Color(RENDERER_PARAM.clearColor));
-        renderer.setSize(RENDERER_PARAM.width, RENDERER_PARAM.height)
+        renderer.setSize(RENDERER_PARAM.width, RENDERER_PARAM.height);
+        const wrapper = document.querySelector('#webgl');
+        wrapper.appendChild(renderer.domElement);
+
+        // カメラ
+        ccamera = new THREE.PerspectiveCamera(
+            CAMERA_PARAM.fovy,
+            CAMERA_PARAM.aspect,
+            CAMERA_PARAM.near,
+            CAMERA_PARAM.far,
+        );
+        camera.position.set(CAMERA_PARAM.x, CAMERA_PARAM.y, CAMERA_PARAM.z)
+        canera.lookAt(CAMERA_PARAM.lookAt)
     }
 
     function render() {
