@@ -33,7 +33,7 @@
     let renderer;         // レンダラ
     let geometry;         // ジオメトリ
     let material;         // マテリアル
-    let torusArray;       // トーラスメッシュの配列 @@@
+    let torusKnotArray;       // トーラスメッシュの配列 @@@
     let controls;         // カメラコントロール
     let axesHelper;       // 軸ヘルパーメッシュ
     let directionalLight; // ディレクショナル・ライト（平行光源）
@@ -84,7 +84,25 @@
         camera.lookAt(CAMERA_PARAM.lookAt);
 
         // マテリアル
-        material = new THREE.MeshPhongMaterial(MATERIAL_PARAM)
+        material = new THREE.MeshPhongMaterial(MATERIAL_PARAM);
+
+        // トーラスノットジオメトリ
+        geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+
+        // トーラスノットジオメトリをまとめて、生成
+        torusKnotArray = [];
+        const count = 20;
+        for (let i = 0; i < count; i++) {
+            const torusKnot = new THREE.Mesh(geometry, material);
+
+            torusKnot.position.x = Math.random() * 10.0 - 5;
+            torusKnot.position.y = Math.random() * 10.0 - 5;
+            torusKnot.position.z = Math.random() * 10.0 - 5;
+            const scale = Math.random() * 0.5 + 0.5;
+            torus.scale.set(scale, scale, scale);
+            torusArray.push(torus);
+            scene.add(torus);
+        }
     }
 
     function render() {
