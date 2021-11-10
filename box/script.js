@@ -56,6 +56,11 @@
         width: window.innerWidth,
         height: window.innerHeight,
     }
+    // マテリアルのパラメータ
+    const MATERIAL_PARAM = {
+        color: 0x3399ff,
+        specular: 0xffffff,
+    };
 
     function init() {
         // シーン
@@ -75,8 +80,11 @@
             CAMERA_PARAM.near,
             CAMERA_PARAM.far,
         );
-        camera.position.set(CAMERA_PARAM.x, CAMERA_PARAM.y, CAMERA_PARAM.z)
-        camera.lookAt(CAMERA_PARAM.lookAt)
+        camera.position.set(CAMERA_PARAM.x, CAMERA_PARAM.y, CAMERA_PARAM.z);
+        camera.lookAt(CAMERA_PARAM.lookAt);
+
+        // マテリアル
+        material = new THREE.MeshPhongMaterial(MATERIAL_PARAM)
     }
 
     function render() {
