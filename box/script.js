@@ -17,7 +17,10 @@
             isDown = false
         }, false)
         window.addEventListener('resize', () => {
-        })
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        }, false)
 
         run = true
         render();
@@ -69,6 +72,11 @@
         y: 1.0,
         z: 1.0
     };
+    // アンビエントライトに関するパラメータの定義
+    const AMBIENT_LIGHT_PARAM = {
+        color: 0xffffff,
+        intensity: 0.2,
+    };
 
     function init() {
         // シーン
@@ -109,21 +117,30 @@
             torusKnot.position.z = Math.random() * 10.0 - 5;
             // サイズ
             const scale = Math.random() * 0.5 + 0.5;
-            torus.scale.set(scale, scale, scale);
+            torusKnot.scale.set(scale, scale, scale);
 
 
-            torusArray.push(torus);
-            scene.add(torus);
+            torusKnotArray.push(torusKnot);
+            scene.add(torusKnot);
         }
 
         // ディレクショナルライト
         directionalLight = new THREE.DirectionalLight(
             DIRECTIONAL_LIGHT_PARAM.color,
             DIRECTIONAL_LIGHT_PARAM.intensity
-        )
-        directionalLight.position.x = DIRECTIONAL_LIGHT_PARAM.x
-        directionalLight.position.y = DIRECTIONAL_LIGHT_PARAM.y
-        directionalLight.position.z = DIRECTIONAL_LIGHT_PARAM.z
+        );
+        directionalLight.position.x = DIRECTIONAL_LIGHT_PARAM.x;
+        directionalLight.position.y = DIRECTIONAL_LIGHT_PARAM.y;
+        directionalLight.position.z = DIRECTIONAL_LIGHT_PARAM.z;
+        scene.add(directionalLight);
+
+        // アンビエントライト
+        ambientLight = new THREE.AmbientLight(
+            AMBIENT_LIGHT_PARAM.color,
+            AMBIENT_LIGHT_PARAM.intensity
+        );
+        scene.add(ambientLight)
+
     }
 
     function render() {
