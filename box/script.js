@@ -139,8 +139,14 @@
             AMBIENT_LIGHT_PARAM.color,
             AMBIENT_LIGHT_PARAM.intensity
         );
-        scene.add(ambientLight)
+        scene.add(ambientLight);
 
+        // 軸ヘルパー
+        axesHelper = new THREE.AxesHelper(5.0);
+        scene.add(axesHelper);
+
+        // コントロール
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 
     function render() {
