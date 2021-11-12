@@ -61,6 +61,14 @@
         color: 0x3399ff,
         specular: 0xffffff,
     };
+    // ライトに関するパラメータの定義
+    const DIRECTIONAL_LIGHT_PARAM = {
+        color: 0xffffff,
+        intensity: 1.0,
+        x: 1.0,
+        y: 1.0,
+        z: 1.0
+    };
 
     function init() {
         // シーン
@@ -95,14 +103,27 @@
         for (let i = 0; i < count; i++) {
             const torusKnot = new THREE.Mesh(geometry, material);
 
+            // 位置
             torusKnot.position.x = Math.random() * 10.0 - 5;
             torusKnot.position.y = Math.random() * 10.0 - 5;
             torusKnot.position.z = Math.random() * 10.0 - 5;
+            // サイズ
             const scale = Math.random() * 0.5 + 0.5;
             torus.scale.set(scale, scale, scale);
+
+
             torusArray.push(torus);
             scene.add(torus);
         }
+
+        // ディレクショナルライト
+        directionalLight = new THREE.DirectionalLight(
+            DIRECTIONAL_LIGHT_PARAM.color,
+            DIRECTIONAL_LIGHT_PARAM.intensity
+        )
+        directionalLight.position.x = DIRECTIONAL_LIGHT_PARAM.x
+        directionalLight.position.y = DIRECTIONAL_LIGHT_PARAM.y
+        directionalLight.position.z = DIRECTIONAL_LIGHT_PARAM.z
     }
 
     function render() {
